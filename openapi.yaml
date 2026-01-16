@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: XDB Admin API
+  version: 1.0.0
+  description: API for XDB Admin System
+servers:
+  - url: /admin
+paths:
+  /auth/login:
+    post:
+      summary: Admin Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+  /users:
+    get:
+      summary: List Users
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+        - name: q
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  /users/{id}:
+    get:
+      summary: Get User Detail
+    put:
+      summary: Update User
+  /users/{id}/ban:
+    post:
+      summary: Ban/Unban User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                banned:
+                  type: boolean
+                reason:
+                  type: string
+  /policies:
+    get:
+      summary: List Policies
+    post:
+      summary: Create Policy
+  /policies/{id}:
+    put:
+      summary: Update Policy
+    delete:
+      summary: Delete Policy
+  /tickets:
+    get:
+      summary: List Tickets
+  /tickets/{id}/replies:
+    get:
+      summary: List Ticket Replies
+    post:
+      summary: Add Reply
+  /dashboard/metrics:
+    get:
+      summary: Get Dashboard Metrics
+      parameters:
+        - name: days
+          in: query
+          schema:
+            type: integer
